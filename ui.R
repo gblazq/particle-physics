@@ -18,7 +18,8 @@ shinyUI(fluidPage(
                 tabPanel("Help",
                          h3("The app"),
                          HTML("This app creates a histogram of invariant mass of candidates to B<sup>0</sup> -> K<sup>-</sup>&#960;<sup>+</sup>&gamma; disintegrations. Superimposed on the histogram, a simulated density function is shown. The density function is calculated according to a model with two contributions: an unknown fraction of the candidates are real disintegrations and the rest are noise.
-The real disintegrations are known to follow a normal distribution with &sigma; = 100 MeV/c<sup>2</sup> centered at the mass of the B<sup>0</sup> meson, and the noise is modelled by an exponential distribution with finite support and rate = 1/1000."),
+The real disintegrations are known to follow a normal distribution with &sigma; = 100 MeV/c<sup>2</sup> centered at the mass of the B<sup>0</sup> meson, and the noise is modelled by an exponential distribution with finite support and rate = 1/1000.
+                              For more information, click <a href='http://gblazq.github.io/particle-physics/index.html'>here</a>."),
 h3("How to use it"),
 HTML("By using the sliders to choose the mean and the fraction of valid observations you should be able to fit the model density function to the observational data. The mean of the normal distribution is the rest mass of the  K<sup>-</sup>&#960;<sup>+</sup>&gamma; products of the disintegration, and according to special relativity and the conservation of energy, it must also be the invariant mass of the B<sup>0</sup> meson. With a fraction of valid observations equal to 1, the model is a gaussian distribution; while a fraction equal to 0 corresponds to a pure noisy model."),
 tags$br(), tags$br(),
