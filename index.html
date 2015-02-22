@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Particle physics model fitting</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Particle physics model fitting">
+  <meta name="author" content="Guillermo Blázquez">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/zenburn.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="libraries/widgets/bootstrap/css/bootstrap.css"></link>
+<link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Particle physics model fitting</h1>
+    <h2>Determining the B0 meson rest mass</h2>
+    <p>Guillermo Blázquez<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>The LHCb experiment</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>The data</h3>
+
+<ul>
+<li>The LHCb experiment collects data from collisions that produce B<sup>0</sup> mesons, that decay
+shortly into other particles.</li>
+<li>Only a small fraction of the collisions produce B<sup>0</sup> decays.</li>
+<li>Data from the collisions is analyzed using machine learning techniques,
+so we get data with real and false decays.</li>
+</ul>
+
+<h3>Chi squared test</h3>
+
+<ul>
+<li>How can we determine some parameter of the data if we have noise?</li>
+<li>We can fit a model to some experimental data by minimizing Pearson&#39;s chi squared test value.</li>
+</ul>
+
+<p>\[\chi^2 = \sum_{i=1}^{N}{\frac{n_i - n_i^{model}}{\sigma_i^2}}\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Determining the mass</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Suppose we want to know the mass of the B<sup>0</sup> meson.</li>
+<li>We have a histogram of the data.</li>
+<li>We know that the data is comprised of actual decays that follow a normal distribution
+with \(\sigma = 100\) MeV/c<sup>2</sup> and noisy decays that follow an exponential distribution with \(\tau = 1000\) MeV/c<sup>2:</sup></li>
+</ul>
+
+<p>\[n_i^{model} = n\left[f N(\mu, \sigma) + (1-f)Exp(m, \tau)\right]\]</p>
+
+<pre><code class="r">model &lt;- function(x, mu, f){
+    m*binLength*(f*dnorm(x, mu, sd) + 
+                     (1-f)*rate/(exp(-min*rate)-exp(-max*rate))*exp(-x*rate))
+}
+</code></pre>
+
+<ul>
+<li>The model has two unknowns, \(\mu\) (the rest mass of the meson) and \(f\), the fraction of real decays.</li>
+<li>If the model is correct, the values that minimize the \(\chi^2\) will be the real parameters \(\mu\) and \(f\).</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Determining the mass</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>In this case, minimizing the \(\chi^2\) is the same as fitting the histogram with a density function based on
+the model. For example, a not so well fitted model:</li>
+</ul>
+
+<p><img src="assets/fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>The app</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The app exemplifies the (simplified) process of extracting parameters from noisy data in particle physics experiments.</li>
+<li>Particle physics relies heavily on data analysis and machine learning techniques. Particle physicists use their own data analysis application, <a href="https://root.cern.ch/drupal/">ROOT</a>, for their job.</li>
+<li>The data for the app is processed data from the <a href="http://opendata.cern.ch/">CERN Open Data Portal</a>.<br>
+</br>
+</br></li>
+<li>Try the app and see if you can fit the model without looking at the \(\chi^2\) value!</li>
+<li>Once you have found the best mass, <a href="http://en.wikipedia.org/wiki/B_meson">check</a> if it is the real value.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='The LHCb experiment'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Determining the mass'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Determining the mass'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='The app'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  <script src="libraries/widgets/bootstrap/js/bootstrap.min.js"></script>
+<script src="libraries/widgets/bootstrap/js/bootbox.min.js"></script>
+
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<script>  
+  $(function (){ 
+    $("#example").popover(); 
+    $("[rel='tooltip']").tooltip(); 
+  });  
+  </script>  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
